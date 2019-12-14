@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Django Highcharts Example</title>
+</head>
+
+<body>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <canvas id="bar-chart" width="800" height="450"></canvas>
+
+    <script>
+        new Chart(document.getElementById("bar-chart"), {
+            type: 'bar',
+            data: {
+                labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+                datasets: [
+                    {
+                        label: "Population (millions)",
+                        backgroundColor: ["#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850", "#3e95cd", "#8e5ea2", "#3cba9f", "#e8c3b9", "#c45850", "#e8c3b9", "#c45850"],
+                        // data: [2, 5267, 734, 784, 433, 500, 600, 700, 800, 1200, 1500, 3000]
+                        data: [
+                            {% for entry in dataset %}{{ entry.user_count }}{% if not forloop.last %}, {% endif %} {% endfor %}
+                        ]
+                    }
+                ]
+            },
+        options: {
+            legend: { display: false },
+            title: {
+                display: true,
+                    responsive: true,
+                        text: 'Total number of registered users on a monthly basis'
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                        stepSize: 1,
+                        min: 0,
+                        max: 20
+                    }
+                }]
+            }
+        },
+
+        });
+
+    </script>
+
+    <!-- <div id="container"></div>
+    <script src="https://code.highcharts.com/highcharts.src.js"></script>
+    <script>
+        Highcharts.chart('container', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Bar chart on the basis of monthly user registered.'
+            },
+            xAxis: {
+                categories: ['Africa', 'America', 'Asia', 'Europe', 'Oceania']
+            },
+            series: [{
+                name: 'Year 1800',
+                data: [107, 31, 635, 203, 2]
+            }, {
+                name: 'Year 1900',
+                data: [133, 156, 947, 408, 6]
+            }, {
+                name: 'Year 2012',
+                data: [1052, 954, 4250, 740, 38]
+            }]
+        });
+    </script> -->
+
+</body>
+
+
+
+</html>
